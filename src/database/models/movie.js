@@ -31,9 +31,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
     tableName: "movies",
     createdAt: "created_at",
-    updatedAt: "updated_at" 
+    updatedAt: "updated_at"
   };
 
   const Movie = sequelize.define(alias, cols, config);
+
+  Movie.associate = (models) => {
+    Movie.hasMany(models.Actor, {
+      as: "actors",
+      foraignKey: "favorite_movie_id"
+    })
+  }
+
   return Movie;
 };

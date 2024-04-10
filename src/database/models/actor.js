@@ -19,12 +19,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(3, 1),
         }
     };
-    const config = {    
+    const config = {
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at"
     };
 
     const Actor = sequelize.define(alias, cols, config);
+
+    Actor.associate = (models) => {
+        Actor.belongsTo(models.Movie, {
+            as: "movies",
+            foreignkey: 'id'
+        })
+    }
+
     return Actor;
 }

@@ -2,7 +2,9 @@ const db = require("../database/models");
 const { Op } = db.Sequelize;
 module.exports = {
     list: (req, res) => {
-        db.Actor.findAll()  
+        db.Actor.findAll({
+            include: [{ association: "movies" }],
+          })  
             .then((actors) => {
                 res.render("actorsList", {
                     actors
